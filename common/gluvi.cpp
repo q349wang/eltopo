@@ -9,7 +9,8 @@
 #include <windows.h>
 #include <gl/GL.h>
 #else
-#include <OpenGL/OpenGL.h>
+#include <GL/gl.h>
+#include <GL/glext.h>
 #endif
 
 

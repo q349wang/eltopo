@@ -35,7 +35,7 @@ SRC += ../common/bfstream.cpp ../common/makelevelset3.cpp ../common/marching_til
 ../common/runstats.cpp 
 
 # SRC += ../common/meshes/meshloader.cpp ../common/meshes/ObjLoader.cpp 
-#SRC += ../common/gluvi.cpp 
+SRC += ../common/gluvi.cpp 
 
 SRC += main.cpp
 

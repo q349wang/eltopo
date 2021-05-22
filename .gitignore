@@ -1,0 +1,8 @@
+talpa/obj
+eltopo3d/obj
+
+talpa/obj_debug
+eltopo3d/obj_debug
+
+**/*.a
+talpa/talpa

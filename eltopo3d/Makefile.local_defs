@@ -4,7 +4,7 @@
 # NOTE: Rename this file to "Makefile.local_defs" after specifying your machine settings
 #
 
-INCLUDE_PATH = -I. -I../common -I../common/newsparse -I../common/meshes -I../common/tunicate
+INCLUDE_PATH = -I. -I../common -I../common/newsparse -I../common/meshes -I../common/tunicate -I../../FastAndRobustMeshArrangements/code
 
 # local machine settings
 

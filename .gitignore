@@ -4,5 +4,11 @@ eltopo3d/obj
 talpa/obj_debug
 eltopo3d/obj_debug
 
+talpa/sisc/
+
+build/
+
+.vscode/
+
 **/*.a
 talpa/talpa

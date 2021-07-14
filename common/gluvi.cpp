@@ -934,6 +934,7 @@ namespace Gluvi{
     
     void sgi_screenshot(const char *filename_format, ...)
     {
+#ifdef DISABLE_SGI_SCREENSHOT
         va_list ap;
         va_start(ap, filename_format);
 #ifdef _MSC_VER
@@ -1082,6 +1083,7 @@ namespace Gluvi{
         
 #ifndef _MSC_VER
         free(filename);
+#endif
 #endif
     }
     

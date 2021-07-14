@@ -1021,44 +1021,8 @@ namespace {
             
             double dt;
             std::vector<Vec3d> xs;
-            read_binary_file( g_surf->m_mesh, xs, g_surf->m_masses, dt, "/Users/tyson/scratch/tbrochu/collisiondebug/current.bin" );
+            read_binary_file( g_surf->m_mesh, xs, g_surf->m_masses, dt, "/home/lwang/dev/eltopo/talpa/sisc/colliding-self/run0001/frame0210.bin" );
             g_surf->set_all_positions(xs);
-            
-            NonDestructiveTriMesh temp_mesh;
-            std::vector<Vec3d> new_xs;
-            read_binary_file( temp_mesh, new_xs, g_surf->m_masses, dt, "/Users/tyson/scratch/tbrochu/collisiondebug/predicted.bin" );
-            g_surf->set_all_newpositions(new_xs);
-            
-            // TEMP: unique-ify
-            std::vector< Vec3st > tris;
-            for ( unsigned int i = 0; i < temp_mesh.get_triangles().size(); ++i )
-            {
-                bool found = false;
-                for ( unsigned int j = 0; j < tris.size(); ++j )
-                {
-                    if ( tris[j] == temp_mesh.get_triangle(i) )
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                
-                if ( !found )
-                {
-                    tris.push_back( temp_mesh.get_triangle(i) );
-                }
-            }
-            
-            if ( dt == 0.0 ) { dt = 1.0; }
-            
-            g_surf->m_mesh.clear();
-            g_surf->m_mesh.replace_all_triangles( tris );
-            g_surf->defrag_mesh();      
-            
-            std::cout << "integrating" << std::endl;
-            
-            double actual_dt;
-            g_surf->integrate( dt, actual_dt );      
         }
                 
         timer_advance_frame(0);

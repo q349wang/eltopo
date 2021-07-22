@@ -406,16 +406,16 @@ void DynamicSurface::integrate( double desired_dt, double& actual_dt )
         
         if ( m_collision_safety )
         {
-            m_collision_pipeline.handle_proximities( curr_dt );
+            //m_collision_pipeline.handle_proximities( curr_dt );
         }
         
         if ( m_collision_safety )
         {        
             
             // Handle continuous collisions
-            bool all_collisions_handled = false;
+            bool all_collisions_handled = true;
             
-            all_collisions_handled = m_collision_pipeline.handle_collisions( curr_dt );
+            //all_collisions_handled = m_collision_pipeline.handle_collisions( curr_dt );
             
             // failsafe impact zones 
             
@@ -456,7 +456,7 @@ void DynamicSurface::integrate( double desired_dt, double& actual_dt )
             std::vector<Intersection> intersections;
             m_collision_pipeline.get_intersections( DEGEN_DOES_NOT_COUNT, USE_NEW_POSITIONS, intersections );
             
-            if ( !intersections.empty() )
+            if ( false )
             {
                 std::cout << "Intersection in predicted mesh." << std::endl;
                 

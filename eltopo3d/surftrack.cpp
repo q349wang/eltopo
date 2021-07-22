@@ -107,6 +107,7 @@ SurfTrack::SurfTrack( const std::vector<Vec3d>& vs,
     m_flipper( *this, initial_parameters.m_edge_flip_min_length_change ),
     m_smoother( *this ),
     m_merger( *this ),
+    m_melder( *this ),
     m_pincher( *this ),
     m_improve_collision_epsilon( initial_parameters.m_improve_collision_epsilon ),
     m_edge_flip_min_length_change( initial_parameters.m_edge_flip_min_length_change ),
@@ -756,7 +757,9 @@ void SurfTrack::topology_changes( )
         return;
     }
     
-    m_merger.process_mesh();
+    //m_merger.process_mesh();
+
+    m_melder.process_mesh();
     
     m_pincher.process_mesh();
         

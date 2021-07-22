@@ -5,7 +5,7 @@ frame_dt 0.005
 sim_dt 0.005
 end_sim_t 2.0
 
-normal_simulation
+faceoff_simulation
 (
    speed 0.2
 )
@@ -21,9 +21,9 @@ surftrack_parameters
    merge_proximity 0.001
    repulsion_proximity 0.0001
    friction_coefficient 0.0
-   perform_improvement 0
-   allow_topology_changes 0
-   collision_safety 0
+   perform_improvement 1
+   allow_topology_changes 1
+   collision_safety 1
    subdivision_scheme butterfly
 )
 

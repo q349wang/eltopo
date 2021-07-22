@@ -16,6 +16,7 @@
 #include <edgeflipper.h>
 #include <edgesplitter.h>
 #include <meshmerger.h>
+#include <meshmelder.h>
 #include <meshpincher.h>
 #include <meshsmoother.h>
 
@@ -268,6 +269,7 @@ public:
     MeshSmoother m_smoother;
     
     MeshMerger m_merger;
+    MeshMelder m_melder;
     MeshPincher m_pincher;
     
     /// Collision epsilon to use during mesh improvment operations

@@ -8,6 +8,8 @@ talpa/sisc/
 
 build/
 
+FastAndRobustMeshArrangements/
+
 .vscode/
 
 **/*.a

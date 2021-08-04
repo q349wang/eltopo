@@ -757,10 +757,12 @@ void SurfTrack::topology_changes( )
         return;
     }
     
-    //m_merger.process_mesh();
-
+#ifndef MESH_MELD
+    m_merger.process_mesh();
+#else
     m_melder.process_mesh();
-    
+#endif
+
     m_pincher.process_mesh();
         
     if ( m_collision_safety )

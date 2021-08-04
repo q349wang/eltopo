@@ -404,19 +404,24 @@ void DynamicSurface::integrate( double desired_dt, double& actual_dt )
         
         // Handle proximities
         
+#ifndef MESH_MELD
         if ( m_collision_safety )
         {
-            //m_collision_pipeline.handle_proximities( curr_dt );
+            m_collision_pipeline.handle_proximities( curr_dt );
         }
+#endif
         
         if ( m_collision_safety )
         {        
             
             // Handle continuous collisions
-            bool all_collisions_handled = true;
+            bool all_collisions_handled = false;
             
-            //all_collisions_handled = m_collision_pipeline.handle_collisions( curr_dt );
-            
+#ifndef MESH_MELD
+            all_collisions_handled = m_collision_pipeline.handle_collisions( curr_dt );
+#else
+            all_collisions_handled = true;
+#endif
             // failsafe impact zones 
             
             ImpactZoneSolver impactZoneSolver( *this );
@@ -456,7 +461,8 @@ void DynamicSurface::integrate( double desired_dt, double& actual_dt )
             std::vector<Intersection> intersections;
             m_collision_pipeline.get_intersections( DEGEN_DOES_NOT_COUNT, USE_NEW_POSITIONS, intersections );
             
-            if ( false )
+#ifndef MESH_MELD
+            if ( !intersections.empty() )
             {
                 std::cout << "Intersection in predicted mesh." << std::endl;
                 
@@ -546,7 +552,8 @@ void DynamicSurface::integrate( double desired_dt, double& actual_dt )
                 
                 continue;      
                 
-            }                 
+            }
+#endif             
             
         }
         
@@ -555,7 +562,7 @@ void DynamicSurface::integrate( double desired_dt, double& actual_dt )
         
         if ( m_collision_safety )
         {
-            m_collision_pipeline.assert_mesh_is_intersection_free( DEGEN_DOES_NOT_COUNT );
+            //m_collision_pipeline.assert_mesh_is_intersection_free( DEGEN_DOES_NOT_COUNT );
         }
         
         actual_dt = curr_dt;

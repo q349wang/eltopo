@@ -1797,13 +1797,15 @@ void CollisionPipeline::get_intersections( bool degeneracy_counts_as_intersectio
                                                t2, triangle[2], 
                                                degeneracy_counts_as_intersection, m_surface.m_verbose ) )
             {
+#ifndef MESH_MELD
                 std::cout << "intersection: " << edge << " vs " << triangle << std::endl;
                 std::cout << "e0: " << e0 << std::endl;
                 std::cout << "e1: " << e1 << std::endl;
                 std::cout << "t0: " << t0 << std::endl;
                 std::cout << "t1: " << t1 << std::endl;
                 std::cout << "t2: " << t2 << std::endl;            
-                
+#endif
+           
                 intersections.push_back( Intersection( edge_candidates[j], i ) );
             }
             
@@ -1867,7 +1869,7 @@ void CollisionPipeline::assert_predicted_mesh_is_intersection_free( bool degener
         const Vec3st& triangle = m_surface.m_mesh.get_triangle( intersections[i].m_triangle_index );
         const Vec2st& edge = m_surface.m_mesh.m_edges[ intersections[i].m_edge_index ];
         
-        std::cout << "Intersection!  Triangle " << triangle << " vs edge " << edge << std::endl;
+        std::cout << "Predicted Intersection!  Triangle " << triangle << " vs edge " << edge << std::endl;
         
         segment_triangle_intersection(m_surface.get_position(edge[0]), edge[0], 
                                       m_surface.get_position(edge[1]), edge[1],

@@ -8,6 +8,7 @@
 #include <surftrack.h>
 #include <vector>
 
+#include <solve_intersections.h>
 #include <igl/copyleft/cgal/mesh_boolean.h>
 
 igl::MeshBooleanType boolean_type(
@@ -29,26 +30,33 @@ void MeshMelder::process_mesh()
 
     const std::vector<Vec3d> &positions = m_surf.get_positions();
     const std::vector<Vec3st> &triangles = m_surf.m_mesh.get_triangles();
+    
+    std::vector<double> coords(positions.size() * 3);
+    std::vector<uint> tris(triangles.size() * 3);
 
-    Eigen::MatrixXd verts(positions.size(), 3);
-    Eigen::MatrixXi faces(triangles.size(), 3);
+    std::vector<double> out_coords;
+    std::vector<uint> out_tris;
+    solveIntersections(coords, tris, out_coords, out_tris);
+
+    Eigen::MatrixXd verts(out_coords.size(), 3);
+    Eigen::MatrixXi faces(out_tris.size(), 3);
 
     Eigen::MatrixXd r_verts;
     Eigen::MatrixXi r_faces;
 
-    for (int i = 0; i < positions.size(); i += 1)
+    for (int i = 0; i < out_coords.size(); i += 1)
     {
         for (int j = 0; j < 3; j += 1)
         {
-            verts(i, j) = positions[i][j];
+            verts(i, j) = out_coords[i * 3 + j];
         }
     }
 
-    for (int i = 0; i < triangles.size(); i += 1)
+    for (int i = 0; i < out_tris.size(); i += 1)
     {
         for (int j = 0; j < 3; j += 1)
         {
-            faces(i, j) = triangles[i][j];
+            faces(i, j) = out_tris[i * 3 + j];
         }
     }
 
@@ -59,9 +67,6 @@ void MeshMelder::process_mesh()
 
     new_pos.resize(r_verts.rows());
     new_tris.resize(r_faces.rows());
-
-    std::cout << "melded" << positions.size() << " to " << new_pos.size() << std::endl;
-
 
     for (int i = 0; i < new_pos.size(); i += 1)
     {
@@ -85,4 +90,5 @@ void MeshMelder::process_mesh()
 
     m_surf.m_mesh.set_num_vertices(m_surf.get_num_vertices());
     m_surf.m_mesh.replace_all_triangles(new_tris);
+    
 }

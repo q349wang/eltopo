@@ -5,7 +5,6 @@ set(CMAKE_BUILD_TYPE "Release")
 
 list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-
 find_package(BLAS REQUIRED)
 find_package(LAPACK REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -20,6 +19,8 @@ option(LIBIGL_WITH_OPENGL            "Use OpenGL"         ON)
 option(LIBIGL_WITH_OPENGL_GLFW       "Use GLFW"           ON)
 option(LIBIGL_WITH_CGAL              "Use CGAL"             ON)
 include(libigl)
+
+add_subdirectory(FastAndRobustMeshArrangements)
 
 # Add your project files
 include_directories( "${PROJECT_SOURCE_DIR}/common/" )
@@ -40,15 +41,16 @@ file(GLOB ELTOPO_SRCFILES             "${PROJECT_SOURCE_DIR}/eltopo3d/*.cpp"
                                       "${PROJECT_SOURCE_DIR}/common/newsparse/*.cpp"
                                       "${PROJECT_SOURCE_DIR}/tunicate/*.cpp")
 
-add_definitions(-D__LITTLE_ENDIAN__ -DUSE_FORTRAN_BLAS -DGRID_100 -DEXTRA_PASSES -DREMOVE_RIZ -fPIC -DGL_GLEXT_PROTOTYPES)
-
+add_definitions(-DMESH_MELD -D__LITTLE_ENDIAN__ -DUSE_FORTRAN_BLAS -DGRID_100 -DEXTRA_PASSES -DREMOVE_RIZ -fPIC -DGL_GLEXT_PROTOTYPES)
 
 add_executable(${PROJECT_NAME} ${SRC_FILES} ${ELTOPO_SRCFILES})
 
 message(STATUS "OPENGL libs in ${OPENGL_LIBRARIES}")
 message(STATUS "GLUT libs in ${GLUT_LIBRARY}")
 
+
 target_link_libraries(${PROJECT_NAME} PUBLIC igl::core igl::cgal
+  fastmesharrange
   ${BLAS_LIBRARIES} 
   ${LAPACK_LIBRARIES}
   ${OPENGL_LIBRARIES}

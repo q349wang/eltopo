@@ -324,7 +324,7 @@ void FaceOffDriver::set_predicted_vertex_positions( const SurfTrack& surf,
     }
     
     double beta = MeshSmoother::compute_max_timestep_quadratic_solve( surf.m_mesh.get_triangles(), surf.get_positions(), displacements, false );
-    
+    beta = 1.0;
     adaptive_dt *= beta;
     
     for(size_t i = 0; i < surf.get_num_vertices(); i++)
